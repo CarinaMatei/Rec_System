@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>Movie Recommendation System</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Movie Recommendation System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/friends}">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/movies}">Movies</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/recommendation/friends}">Recommendation</a>
+				</li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+<br>
+	<a th:href="@{/preferences}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Preferences
+    </a>
+    <div class="row">
+        <div class="col">
+        	<br>
+            <h1 class = "text-center"> My Preferences </h1>
+            <div class = "card-body">
+            <form th:action = "@{/preferences/{id} (id=${preference.id})}" th:object="${preference}" method="post">					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="dramaVal">Drama: </label></strong>
+                	<p id="dramaVal"></p>
+                    	<div class="range">
+                        	<input id="dramaVal" type="range" min="1" max="100" th:field="*{drama}" class="form-range" oninput="dramaFunction(this.value)"/>
+                        </div>
+                  </div>
+            				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="actionVal">Action: </label></strong>
+                	<p id="actionVal"></p>
+                    	<div class="range">
+                        	<input id="actionVal" type="range" th:field="*{action}" min="1" max="100" class="form-range" oninput="actionFunction(this.value)"/>
+                        </div>
+                  </div>
+					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="romanceVal">Romance: </label></strong>
+                	<p id="romanceVal"></p>
+                    	<div class="range">
+                        	<input id="romanceVal" type="range" th:field="*{romance}" min="1" max="100" class="form-range" oninput="romanceFunction(this.value)"/>
+                        </div>
+                  </div>
+             					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="comedyVal">Comedy: </label></strong>
+                	<p id="comedyVal"></p>
+                    	<div class="range">
+                        	<input id="comedyVal" type="range" th:field="*{comedy}" min="1" max="100" class="form-range" oninput="comedyFunction(this.value)"/>
+                        </div>
+                  </div>
+             					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="fantasyVal">Fantasy: </label></strong>
+                	<p id="fantasyVal"></p>
+                    	<div class="range">
+                        	<input id="fantasyVal" type="range" th:field="*{fantasy}" min="1" max="100" class="form-range" oninput="fantasyFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="sfVal">Science Fiction: </label></strong>
+                	<p id="sfVal"></p>
+                    	<div class="range">
+                        	<input id="sfVal" type="range" th:field="*{sf}" min="1" max="100" class="form-range" oninput="sfFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="thrillerVal">Thriller: </label></strong>
+                	<p id="thrillerVal"></p>
+                    	<div class="range">
+                        	<input id="thrillerVal" type="range" th:field="*{thriller}" min="1" max="100" class="form-range" oninput="thrillerFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="adventureVal">Adventure: </label></strong>
+                	<p id="adventureVal"></p>
+                    	<div class="range">
+                        	<input id="adventureVal" type="range" th:field="*{adventure}" min="1" max="100" class="form-range" oninput="adventureFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="documentaryVal">Documentary: </label></strong>
+                	<p id="documentaryVal"></p>
+                    	<div class="range">
+                        	<input id="documentaryVal" type="range" th:field="*{documentary}" min="1" max="100" class="form-range" oninput="documentaryFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="animationVal">Animation: </label></strong>
+                	<p id="animationVal"></p>
+                    	<div class="range">
+                        	<input id="animationVal" type="range" th:field="*{animation}" min="1" max="100" class="form-range" oninput="animationFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="horrorVal">Horror: </label></strong>
+                	<p id="horrorVal"></p>
+                    	<div class="range">
+                        	<input id="horrorVal" type="range" th:field="*{horror}" min="1" max="100" class="form-range" oninput="horrorFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="crimeVal">Crime: </label></strong>
+                	<p id="crimeVal"></p>
+                    	<div class="range">
+                        	<input id="crimeVal" type="range" th:field="*{crime}" min="1" max="100" class="form-range" oninput="crimeFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="mysteryVal">Mystery: </label></strong>
+                	<p id="mysteryVal"></p>
+                    	<div class="range">
+                        	<input id="mysteryVal" type="range" th:field="*{mystery}" min="1" max="100" class="form-range" oninput="mysteryFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="historicalVal">Historical: </label></strong>
+                	<p id="historicalVal"></p>
+                    	<div class="range">
+                        	<input id="historicalVal" type="range" th:field="*{historical}" min="1" max="100" class="form-range" oninput="historicalFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             					
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="musicalVal">Musical: </label></strong>
+                	<p id="musicalVal"></p>
+                    	<div class="range">
+                        	<input id="musicalVal" type="range" th:field="*{musical}" min="1" max="100" class="form-range" oninput="musicalFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             				
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="yearMinVal">Min Year: </label></strong>
+                	<p id="yearMinVal"></p>
+                    	<div class="range">
+                        	<input id="yearMinVal" type="range" th:field="*{year_min}" min="1900" max="2023" class="form-range" oninput="yearMinFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+                  
+                 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="yearMaxVal">Max Year: </label></strong>
+                	<p id="yearMaxVal"></p>
+                    	<div class="range">
+                        	<input id="yearMaxVal" type="range" th:field="*{year_max}" min="1900" max="2023" class="form-range" oninput="yearMaxFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+             			
+            	 <div class="form-group mt-3">
+                	<strong><label class="form-label" for="lengthMinVal">Min Length: </label></strong>
+                	<p id="lengthMinVal"></p>
+                    	<div class="range">
+                        	<input id="lengthMinVal" type="range" th:field="*{length_min}" min="1" max="400" class="form-range" oninput="lengthMinFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+                  
+                  <div class="form-group mt-3">
+                	<strong><label class="form-label" for="lengthMaxVal">Max Length: </label></strong>
+                	<p id="lengthMaxVal"></p>
+                    	<div class="range">
+                        	<input id="lengthMaxVal" type="range" th:field="*{length_max}" min="1" max="400" class="form-range" oninput="lengthMaxFunction(this.value)"/>                     	
+                        </div>
+                  </div>
+				<br>
+				
+				<div class = "text-center">
+					<button type = "submit" class = "btn btn-primary">Save</button>	
+				</div>
+			</form>
+		</div>		
+      </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+   function getPreferenceValue(preferences, attribute) {
+     for (var i = 0; i < preferences.length; i++) {
+       if (preferences[i].attribute === attribute) {
+         return preferences[i].value;
+       }
+     }
+     return '0'; // Default value if preference not found
+   }
+</script>
+
+
+
+
+
+<script>
+function dramaFunction(value) {
+  document.getElementById("dramaVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function actionFunction(value) {
+  document.getElementById("actionVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function romanceFunction(value) {
+  document.getElementById("romanceVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function comedyFunction(value) {
+  document.getElementById("comedyVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function fantasyFunction(value) {
+  document.getElementById("fantasyVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function sfFunction(value) {
+  document.getElementById("sfVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function thrillerFunction(value) {
+  document.getElementById("thrillerVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function adventureFunction(value) {
+  document.getElementById("adventureVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function documentaryFunction(value) {
+  document.getElementById("documentaryVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function animationFunction(value) {
+  document.getElementById("animationVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function horrorFunction(value) {
+  document.getElementById("horrorVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function crimeFunction(value) {
+  document.getElementById("crimeVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function mysteryFunction(value) {
+  document.getElementById("mysteryVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function historicalFunction(value) {
+  document.getElementById("historicalVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function musicalFunction(value) {
+  document.getElementById("musicalVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function yearMinFunction(value) {
+  document.getElementById("yearMinVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function yearMaxFunction(value) {
+  document.getElementById("yearMaxVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function lengthMinFunction(value) {
+  document.getElementById("lengthMinVal").innerHTML = value; 
+}
+</script>
+
+<script>
+function lengthMaxFunction(value) {
+  document.getElementById("lengthMaxVal").innerHTML = value; 
+}
+</script>
+
+</body>
+</html>

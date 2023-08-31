@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+	rel="stylesheet">
+<title>Movie Recommendation System</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.preference-attribute {
+    font-weight: bold;
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.preference-value {
+    color: #666;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.preference-title {
+    font-weight: bold;
+    color: #428bca;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.preferences-list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.preference-column {
+    flex: 0 0 calc(33% - 30px);
+    margin-bottom: 50px;
+}
+
+.genre-column {
+    flex: 0 0 calc(60% - 60px);
+    margin-right: 20px;
+}
+</style>
+</head>
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Movie Recommendation System</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/}">Home
+							Page</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/friends}">Friends</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/movies}">Movies</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/recommendation/friends}">Recommendation</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+    <div class="container">
+    <br>
+    <div class="row">
+		<h1 class="text-center">My Preferences</h1>
+	</div>
+	<br>
+	<div class = "row">
+		<div class = "col-lg-3">
+			<br>				
+			<a th:href= "@{/preferences/add}" class = "btn btn-primary">Add Preference</a>
+            <a th:if="${not #lists.isEmpty(preferences)}" th:href="@{/preferences/update/{id}(id=${preferences[0].id})}" class="btn btn-primary">Update Preference</a>
+       </div>
+   </div>
+   <br>
+	
+<div class="row">
+    <div class="col-md-5 offset-md-3">
+        <div class="preferences-list">
+            <div class="row" th:each="preference : ${preferences}">
+                <!-- Genres Column -->
+                <div class="col-md-6 genre-column">
+                    <div class="preference-title">Genres</div>
+                    <br>
+                    <div class="preference-value">
+                    <div>
+                        <strong>Drama:</strong> <span th:text="${preference.drama}"></span>%
+                    </div>
+                    <div>
+                        <strong>Action:</strong> <span th:text="${preference.action}"></span>%
+                    </div>
+                    <div>
+                        <strong>Romance:</strong> <span th:text="${preference.romance}"></span>%
+                    </div>
+                    <div>
+                        <strong>Comedy:</strong> <span th:text="${preference.comedy}"></span>%
+                    </div>
+                    <div>
+                        <strong>Fantasy:</strong> <span th:text="${preference.fantasy}"></span>%
+                    </div>
+                    <div>
+                        <strong>SF:</strong> <span th:text="${preference.sf}"></span>%
+                    </div>
+                    <div>
+                        <strong>Thriller:</strong> <span th:text="${preference.thriller}"></span>%
+                    </div>
+                    <div>
+                        <strong>Adventure:</strong> <span th:text="${preference.adventure}"></span>%
+                    </div>
+                    <div>
+                        <strong>Documentary:</strong> <span th:text="${preference.documentary}"></span>%
+                    </div>
+                    <div>
+                        <strong>Animation:</strong> <span th:text="${preference.animation}"></span>%
+                    </div>
+                    <div>
+                        <strong>Horror:</strong> <span th:text="${preference.horror}"></span>%
+                    </div>
+                    <div>
+                        <strong>Crime:</strong> <span th:text="${preference.crime}"></span>%
+                    </div>
+                    <div>
+                        <strong>Mystery:</strong> <span th:text="${preference.mystery}"></span>%
+                    </div>
+                    <div>
+                        <strong>Historical:</strong> <span th:text="${preference.historical}"></span>%
+                    </div>
+                    <div>
+                        <strong>Musical:</strong> <span th:text="${preference.musical}"></span>%
+                    </div>
+                    </div>
+                </div>
+				
+       <!-- Years and Length Columns -->
+                <div class="col-md-3 preference-column">
+                    <div class="preference-title">Years</div>
+                    <div class="preference-value">
+                        <div>
+                            <strong>Min:</strong> <span th:text="${preference.year_min}"></span>
+                        </div>
+                        <div>
+                            <strong>Max:</strong> <span th:text="${preference.year_max}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 preference-column">
+                    <div class="preference-title">Length</div>
+                    <div class="preference-value">
+                        <div>
+                            <strong>Min:</strong> <span th:text="${preference.length_min}"></span>
+                        </div>
+                        <div>
+                            <strong>Max:</strong> <span th:text="${preference.length_max}"></span>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br>
+</body>
+</html>
+</body>
+</html>
+</body>
+</html>

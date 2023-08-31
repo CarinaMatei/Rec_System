@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Movie Recommendation System</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+	label {
+	  display: flex;
+	  flex-direction: row;
+	
+	}
+	
+	input#genreBox {
+	  height: 25px;
+	  flex: 0 0 40px;
+	  margin-left: 10px;
+	  margin-right: 5px;
+	  width: 50px;
+	}​
+	</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Movie Recommendation System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/preferences}">Preferences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/friends}">Friends</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/recommendation/friends}">Recommendation</a>
+				</li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center">
+				<h1 class = "text-center"> Update Movie </h1>
+				<div class = "card-body">
+					<form th:action = "@{/movies/{id} (id=${movie.id})}" th:object = "${movie}" method="POST">
+						<div class = "form-group">
+							<label> Movie Name </label>
+							<input
+							type = "text"
+							name = "movie_name"
+							th:field = "*{movie_name}"
+							class = "form-control"
+							placeholder = "Enter Movie Name"
+							/>
+						</div>
+						<br>
+					  	<div class = "form-group">
+							<strong><label> Genres </label></strong>
+							<br>
+							<label> Drama <input id = "genreBox" type = "text" name = "dramaBox" th:field = "*{genre_drama}" class = "form-control"/>  %</label>
+							<br>
+							<label> Action <input id = "genreBox" type = "text" name = "actionBox" th:field = "*{genre_action}" class = "form-control"/>  %</label>
+							<br>
+							<label> Romance <input id = "genreBox" type = "text" name = "romanceBox"  th:field = "*{genre_romance}" class = "form-control"/>  %</label>
+							<br>
+							<label> Comedy <input id = "genreBox" type = "text" name = "comedyBox" th:field = "*{genre_comedy}" class = "form-control"/>  %</label>
+							<br>
+							<label> Fantasy <input id = "genreBox" type = "text" name = "fantasyBox" th:field = "*{genre_fantasy}" class = "form-control"/>  %</label>
+							<br>
+							<label> Science Fiction <input id = "genreBox" type = "text" name = "sfBox" th:field = "*{genre_sf}" class = "form-control"/>  %</label>
+							<br>
+							<label> Thriller <input id = "genreBox" type = "text" name = "thrillerBox" th:field = "*{genre_thriller}" class = "form-control"/>  %</label>
+							<br>
+							<label> Adventure <input id = "genreBox" type = "text" name = "adventureBox" th:field = "*{genre_adventure}" class = "form-control"/>  %</label>
+							<br>
+							<label> Documentary <input id = "genreBox" type = "text" name = "documentaryBox" th:field = "*{genre_documentary}" class = "form-control"/>  %</label>
+							<br>
+							<label> Animation <input id = "genreBox" type = "text" name = "animationBox" th:field = "*{genre_animation}" class = "form-control"/>  %</label>
+							<br>
+							<label> Horror <input id = "genreBox" type = "text" name = "horrorBox" th:field = "*{genre_horror}" class = "form-control"/>  %</label>
+							<br>
+							<label> Crime <input id = "genreBox" type = "text" name = "crimeBox" th:field = "*{genre_crime}" class = "form-control"/>  %</label>
+							<br>
+							<label> Mystery <input id = "genreBox" type = "text" name = "mysteryBox" th:field = "*{genre_mystery}" class = "form-control"/>  %</label>
+							<br>
+							<label> Historical <input id = "genreBox" type = "text" name = "historicalBox" th:field = "*{genre_historical}" class = "form-control"/>  %</label>
+							<br>
+							<label> Musical <input id = "genreBox" type = "text" name = "musicalBox" th:field = "*{genre_musical}" class = "form-control"/>  %</label>
+							<br>
+						</div>
+						<br>						
+						<div class = "form-group">
+							<strong><label> Release </label></strong>
+							<input
+							type = "text"
+							name = "release"
+							th:field = "*{release}"
+							class = "form-control"
+							placeholder = "Enter Movie Release"
+							/>
+						</div>
+						<br>
+						<div class = "form-group">
+							<strong><label> Length </label></strong>
+							<input
+							type = "text"
+							name = "length"
+							th:field = "*{length}"
+							class = "form-control"
+							placeholder = "Enter Movie Length"
+							/>
+						</div>
+						<br>
+						<div class = "form-group">
+							<strong><label> Rating </label></strong>
+							<input
+							type = "text"
+							name = "rating"
+							th:field = "*{rating}"
+							class = "form-control"
+							placeholder = "Enter Movie Rating"
+							/>
+						</div>
+						<br>
+						<div class = "form-group">
+							<strong><label> Actors </label></strong>
+							<input
+							type = "text"
+							name = "actors"
+							th:field = "*{actors}"
+							class = "form-control"
+							placeholder = "Enter Movie Actors"
+							/>
+						</div>
+						<br>
+						<div class = "form-group">
+							<strong><label> Description </label></strong>
+							<textarea 
+								name="description" 
+								cols="65" 
+								rows="5"
+								th:field = "*{description}"
+								class = "form-control"
+								placeholder = "Enter Movie Description">
+							</textarea>
+						</div>
+						<br>
+						<div class = "text-center">
+							<button type = "submit" class = "btn btn-primary">Submit</button>
+						</div>					
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
